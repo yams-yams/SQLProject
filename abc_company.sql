@@ -128,7 +128,7 @@ CREATE TABLE INTERVIEW
 interviewer_id char(10) NOT NULL,
 jobpos_id char(10) NOT NULL,
 grade int,
-inter_time time NOT NULL,
+inter_time datetime NOT NULL,
 CONSTRAINT chk_grade CHECK (grade BETWEEN 0 AND 100),
 PRIMARY KEY (interviewee_id, interviewer_id, jobpos_id, inter_time),
 FOREIGN KEY (interviewee_id) REFERENCES CANDIDATE(cand_id),
@@ -165,7 +165,7 @@ FOREIGN KEY(pref_salesperson_id) REFERENCES EMPLOYEE(e_id));
 CREATE TABLE SALE
 (emp_sale_id char(10) NOT NULL,
 cust_buyer_id char(10) NOT NULL,
-sale_time time NOT NULL,
+sale_time datetime NOT NULL,
 on_site_id char(10) NOT NULL,
 product_sold_id char(10) NOT NULL,
 num_sold int DEFAULT 1,
