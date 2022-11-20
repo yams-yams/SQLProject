@@ -1,3 +1,4 @@
+create database abc_company;
 use abc_company;
 
 DROP TABLE CUST_PREF_SALES;
@@ -11,6 +12,7 @@ DROP TABLE PRODUCT;
 DROP TABLE PART;
 DROP TABLE VENDOR;
 DROP TABLE CANDIDATE;
+DROP TABLE SALARY;
 DROP TABLE WORKS_ON;
 DROP TABLE SITE;
 DROP TABLE DEPARTMENT;
@@ -63,6 +65,13 @@ s_end time NOT NULL,
 PRIMARY KEY (emp_id, dept_id, s_start, s_end),
 FOREIGN KEY (emp_id) REFERENCES EMPLOYEE(e_id),
 FOREIGN KEY (dept_id) REFERENCES DEPARTMENT(d_id));
+
+CREATE TABLE SALARY
+(employ_id char(10) NOT NULL,
+year int NOT NULL,
+salary int NOT NULL,
+PRIMARY KEY (employ_id, year),
+FOREIGN KEY (employ_id) REFERENCES EMPLOYEE(e_id));
 
 CREATE TABLE SITE
 (s_id char(10) NOT NULL,
