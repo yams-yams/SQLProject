@@ -1,20 +1,21 @@
 create database abc_company;
 use abc_company;
 
+DROP TABLE SALE;
 DROP TABLE CUST_PREF_SALES;
 DROP TABLE CUSTOMER;
 DROP TABLE USES_PART;
-DROP TABLE SALE;
 DROP TABLE SUPPLIES_PART;
 DROP TABLE INTERVIEW;
 DROP TABLE JOB_POSITION;
+DROP TABLE CANDIDATE;
 DROP TABLE PRODUCT;
 DROP TABLE PART;
 DROP TABLE VENDOR;
-DROP TABLE CANDIDATE;
 DROP TABLE SALARY;
 DROP TABLE WORKS_ON;
 DROP TABLE SITE;
+DROP TABLE SHIFTS;
 DROP TABLE DEPARTMENT;
 DROP TABLE EMPLOYEE;
 DROP TABLE PHONE_NUMBER;
@@ -43,35 +44,26 @@ FOREIGN KEY (person_id) REFERENCES PERSON(p_id));
 
 CREATE TABLE EMPLOYEE
 (e_id char (10) NOT NULL, 
-title varchar (10), 
+title varchar (15), 
 emp_rank int, 
-sup_id char (10), 
-salary varchar (10),
+sup_id char (10),
 PRIMARY KEY(e_id), 
 FOREIGN KEY (e_id) REFERENCES PERSON (p_id),
 FOREIGN KEY (sup_id) REFERENCES EMPLOYEE(e_id));
 
-
 CREATE TABLE DEPARTMENT
-(d_id char(10) NOT NULL, 
-dept_name varchar (10), 
+(d_id varchar(3) NOT NULL, 
+dept_name varchar (15), 
 PRIMARY KEY (d_id));  
 
 CREATE TABLE SHIFTS
 (emp_id char(10) NOT NULL,
-dept_id char(20) NOT NULL,
+dept_id varchar(3) NOT NULL,
 s_start time NOT NULL,
 s_end time NOT NULL,
 PRIMARY KEY (emp_id, dept_id, s_start, s_end),
 FOREIGN KEY (emp_id) REFERENCES EMPLOYEE(e_id),
 FOREIGN KEY (dept_id) REFERENCES DEPARTMENT(d_id));
-
-CREATE TABLE SALARY
-(employ_id char(10) NOT NULL,
-year int NOT NULL,
-salary int NOT NULL,
-PRIMARY KEY (employ_id, year),
-FOREIGN KEY (employ_id) REFERENCES EMPLOYEE(e_id));
 
 CREATE TABLE SITE
 (s_id char(10) NOT NULL,
@@ -85,6 +77,13 @@ site_id varchar(10) NOT NULL,
 FOREIGN KEY (employee_id) REFERENCES EMPLOYEE(e_id),
 FOREIGN KEY (site_id) REFERENCES SITE(s_id));
 
+CREATE TABLE SALARY
+(employ_id char(10) NOT NULL,
+year int NOT NULL,
+salary int NOT NULL,
+PRIMARY KEY (employ_id, year),
+FOREIGN KEY (employ_id) REFERENCES EMPLOYEE(e_id));
+
 CREATE TABLE VENDOR
 (v_id char(10) NOT NULL,
 v_name varchar(20),
@@ -96,9 +95,9 @@ PRIMARY KEY (v_id),
 CONSTRAINT chk_credit CHECK (credit_rating BETWEEN 300 AND 850));
 
 CREATE TABLE PART
-(type varchar(10),
+(p_type varchar(10),
 weight int,
-PRIMARY KEY (type),
+PRIMARY KEY (p_type),
 CONSTRAINT chk_weight CHECK (weight > 0));
 
 CREATE TABLE PRODUCT
@@ -120,7 +119,7 @@ CREATE TABLE JOB_POSITION
 (job_id char(10) NOT NULL,
 description varchar(140),
 post_date date,
-depart_id char(10) NOT NULL,
+depart_id varchar(3) NOT NULL,
 PRIMARY KEY (job_id),
 FOREIGN KEY (depart_id) REFERENCES DEPARTMENT(d_id));
 
