@@ -56,7 +56,7 @@ CREATE TABLE DEPARTMENT
 dept_name varchar (15), 
 PRIMARY KEY (d_id));  
 
-CREATE TABLE SHIFTS
+CREATE TABLE SHIFT
 (emp_id char(10) NOT NULL,
 dept_id varchar(3) NOT NULL,
 s_start time NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE PRODUCT
 (prod_id char(10),
 prod_type varchar(10),
 size varchar(5),
-list_price float,
+list_price decimal(6, 2),
 weight int,
 style varchar(10),
 PRIMARY KEY (prod_id));
@@ -116,7 +116,7 @@ PRIMARY KEY (cand_id),
 FOREIGN KEY (cand_id) REFERENCES PERSON(p_id));
 
 CREATE TABLE JOB_POSITION
-(job_id char(10) NOT NULL,
+(job_id char(5) NOT NULL,
 description varchar(140),
 post_date date,
 depart_id varchar(3) NOT NULL,
@@ -126,7 +126,7 @@ FOREIGN KEY (depart_id) REFERENCES DEPARTMENT(d_id));
 CREATE TABLE INTERVIEW
 (interviewee_id char(10) NOT NULL,
 interviewer_id char(10) NOT NULL,
-jobpos_id char(10) NOT NULL,
+jobpos_id char(5) NOT NULL,
 grade int,
 inter_time datetime NOT NULL,
 CONSTRAINT chk_grade CHECK (grade BETWEEN 0 AND 100),
@@ -173,4 +173,8 @@ PRIMARY KEY (emp_sale_id, cust_buyer_id, sale_time),
 FOREIGN KEY (emp_sale_id) REFERENCES EMPLOYEE(e_id),
 FOREIGN KEY (cust_buyer_id) REFERENCES CUSTOMER(cust_id),
 FOREIGN KEY (on_site_id) REFERENCES SITE(s_id),
+FOREIGN KEY (product_sold_id) REFERENCES PRODUCT(prod_id),
 CONSTRAINT chk_num_sold CHECK (num_sold > 0));
+
+
+
